@@ -16,7 +16,7 @@
  A. Составить отчет и отправить ссылку личным сообщением в Slack
 # Links
 
-- Slack
+- Slack(https://slack.com/)
 - Google Sheets
 - Google Docs
 - GitHub
