@@ -11,17 +11,17 @@
  5. Отправить зарегистрированный логин личным сообщением в Slack
  6. Ознакомиться со ссылками учебного материала
  7. Выполнить инструкцию учебного материала
- 8. Сгенирировать SSH ключ и добавть его в список ключей для сервиса GitHub
+ 8. Сгенирировать SSH ключ и добавить его в список ключей для сервиса GitHub
  9. Сгенирировать Personal Token с правами gist и сохранить его в файл
  A. Составить отчет и отправить ссылку личным сообщением в Slack
 # Links
 
 - [Slack](https://slack.com/)
-- Google Sheets
-- Google Docs
-- GitHub
-- GitHub SSH Key
-- Markdown
-- Gist
-- GitHub Personal Token
+- [Google Sheets](https://www.google.ru/intl/ru/sheets/about/)
+- [Google Docs]
+- [GitHub]
+- [GitHub SSH Key]
+- [Markdown]
+- [Gist]
+- [GitHub Personal Token]
 ###### Copyright (c) 2017 Братья Вершинины
