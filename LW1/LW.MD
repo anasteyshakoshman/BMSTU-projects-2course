@@ -18,10 +18,10 @@
 
 - [Slack](https://slack.com/)
 - [Google Sheets](https://www.google.ru/intl/ru/sheets/about/)
-- [Google Docs]
-- [GitHub]
-- [GitHub SSH Key]
-- [Markdown]
-- [Gist]
-- [GitHub Personal Token]
+- [Google Docs](https://www.google.ru/intl/ru/docs/about/)
+- [GitHub](https://github.com/)
+- [GitHub SSH Key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)
+- [Markdown](https://stackedit.io/)
+- [Gist](https://gist.github.com/)
+- [GitHub Personal Token](https://github.com/settings/tokens/new)
 ###### Copyright (c) 2017 Братья Вершинины
