@@ -4,7 +4,7 @@ Laboratory work I
 
 Tasks
 
-|_X_| 1. Зарегистрироваться на почтовом сервисе Gmail
+ 1. Зарегистрироваться на почтовом сервисе Gmail
  2. Зарегистрироваться на сервисе обмена сообщений Slack
  3. Зарегистрироваться на сервисе совместной разработки GitHub
  4. Отправить зарегистрированный адрес почтового ящика личным сообщением в Slack
@@ -16,12 +16,12 @@ Tasks
  A. Составить отчет и отправить ссылку личным сообщением в Slack
 Links
 
-Slack
-Google Sheets
-Google Docs
-GitHub
-GitHub SSH Key
-Markdown
-Gist
-GitHub Personal Token
+- Slack
+- Google Sheets
+- Google Docs
+- GitHub
+- GitHub SSH Key
+- Markdown
+- Gist
+- GitHub Personal Token
 Copyright (c) 2017 Братья Вершинины
