@@ -10,7 +10,7 @@
  
 ## Tutorial
 
-Устанавливаем значения переменные окружений `GITHUB_USERNAME` и `GIST_TOKEN`, затем настраиваем текстовый редактор.
+Устанавливаем значения переменные окружений  `GIST_TOKEN` и `GITHUB_USERNAME`, затем настраиваем текстовый редактор
 ```bash
 $ export GITHUB_USERNAME=TalkedDevotee # Установка значения GITHUB_USERNAME
 $ export GIST_TOKEN=47fb03c84a3c68409f7ff2cf3732408231bc8624 # Установка значения GIST_TOKEN
@@ -21,7 +21,7 @@ $ alias edit=vim # Настройка текстового редактора
 $ npm install -g gistup
 ```
 
-Создаем файл .gistup.json и в нем прописываем `token`.
+Создаем файл .gistup.json и прописываем в нем `token`
 ```bash
 $ cat > ~/.gistup.json <<EOF
 {
@@ -30,7 +30,7 @@ $ cat > ~/.gistup.json <<EOF
 EOF
 ```
 
-Создаем три папки.
+Создаем три папки
 ```bash
 $ cd ~ # Переход в домашнюю папку
 $ mkdir -p workspace/labs/projects/ # Создание папки projects
@@ -47,7 +47,7 @@ $ cd ~/workspace/labs/ # Переход в папку labs
 $ export LAB_NUMBER=02 # Установка значения LAB_NUMBER
 $ git clone https://github.com/tp-labs/lab${LAB_NUMBER} tasks/lab${LAB_NUMBER} # Скачиваем с сайта
 $ mkdir reports/lab${LAB_NUMBER} # Создаем папку lab02
-$ cp tasks/lab${LAB_NUMBER}/README.md reports/lab${LAB_NUMBER}/REPORT.md # Копируем файл README.md в папку lab02 под новым именем с расширением .md
+$ cp tasks/lab${LAB_NUMBER}/README.md reports/lab${LAB_NUMBER}/REPORT.md # Копируем файл README.md в папку lab02 под именем REPORT.md
 $ cd reports/lab${LAB_NUMBER} # Переход в папку lab02
 $ edit REPORT.md # Редактируем файл
 $ gistup -m "lab${LAB_NUMBER}" # Коммит "lab02"
