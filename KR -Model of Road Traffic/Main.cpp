@@ -5,9 +5,10 @@
 
 void main()
 {
-	sf::RenderWindow window(sf::VideoMode(640, 480), "Cars", sf::Style::Fullscreen);   //окно
-	Map map("map.png");   //карта
+	sf::RenderWindow window(sf::VideoMode(640, 480), "Cars"/*, sf::Style::Fullscreen*/);   //окно
 	View view;   //камера
+	Map map("map.png");   //карта
+	Car car("car1.png", map);
 	sf::Clock clock;    //часы
 	float CurrentClock = 0;     //текущее время
 	while (window.isOpen())     
@@ -21,10 +22,14 @@ void main()
 			if (event.type == sf::Event::Closed) window.close();
 		}
 		view.work(window, time);  //включаем камеру
-
 		window.clear();
 		map.draw(window);   //рисуем карту
-		//window.draw();
-		window.display();   //вывод на дисплей
+		//car.go(map);
+		window.draw(car.getSprite());
+		window.display();
 	}	
 }
+
+
+
+
