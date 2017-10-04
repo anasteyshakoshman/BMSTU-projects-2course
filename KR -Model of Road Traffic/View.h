@@ -12,14 +12,11 @@ public:
 		Camera.reset(sf::FloatRect(0, 0, 640, 480));
 	}
 
-	void viewgetXY(const float x, const float y)
+	
+
+	sf::View & getCamera()
 	{
-		float vX = x;
-		float vY = y;
-		if (x < 320) vX = 320;
-		if (y < 240) vY = 240;
-		if (y > 554) vY = 554;
-		Camera.setCenter(vX, vY);
+		return Camera;
 	}
 
 
@@ -27,19 +24,19 @@ public:
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			Camera.move(0.1*time, 0);
+			Camera.move(time, 0);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			Camera.move(0, 0.1*time);
+			Camera.move(0, time);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
-			Camera.move(-0.1*time, 0);
+			Camera.move(-time, 0);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			Camera.move(0, -0.1*time);
+			Camera.move(0, -time);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
@@ -47,16 +44,16 @@ public:
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
-			//view.zoom(1.1f); 
+			Camera.zoom(0.9900f); 
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
-			Camera.setSize(540, 380);
+			Camera.setSize(4800, 2400);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
-			Camera.setSize(800, 500);
-		}
+			Camera.setSize(9600, 5760);
+		}*/
 
 		wind.setView(Camera);
 	}
