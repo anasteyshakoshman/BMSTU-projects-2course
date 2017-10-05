@@ -8,7 +8,7 @@ void main()
 	sf::RenderWindow window(sf::VideoMode(640, 480), "Cars"/*, sf::Style::Fullscreen*/);   //окно
 	View view;   //камера
 	Map map("map.png");   //карта
-	Car car("car1.png", map);
+	Car car(sf::Color::Blue, map);
 	sf::Clock clock;    //часы
 	float CurrentClock = 0;     //текущее время
 	while (window.isOpen())     
@@ -24,8 +24,9 @@ void main()
 		view.work(window, time);  //включаем камеру
 		window.clear();
 		map.draw(window);   //рисуем карту
-		//car.go(map);
 		window.draw(car.getSprite());
+		car.go(map, window);
+		std::cout << "X : " << car.getX() << "         Y : " << car.getY() << std::endl;
 		window.display();
 	}	
 }
