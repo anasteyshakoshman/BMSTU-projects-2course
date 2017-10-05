@@ -19,6 +19,8 @@ public:
 		return Camera;
 	}
 
+	
+
 
 	void work(sf::RenderWindow & wind, const float time)
 	{
