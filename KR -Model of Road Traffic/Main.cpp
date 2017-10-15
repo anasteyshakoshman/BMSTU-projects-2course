@@ -5,10 +5,10 @@
 
 void main()
 {
-	sf::RenderWindow window(sf::VideoMode(640, 480), "Cars"/*, sf::Style::Fullscreen*/);   //окно
+	sf::RenderWindow window(sf::VideoMode(640, 480), "Cars", sf::Style::Fullscreen);   //окно
 	View view;   //камера
 	Map map("map.png");   //карта
-	Car car(sf::Color::Blue, map);
+	Car car(sf::Color::Green, map);
 	sf::Clock clock;    //часы
 	float CurrentClock = 0;     //текущее время
 	while (window.isOpen())     
@@ -30,7 +30,5 @@ void main()
 		window.display();
 	}	
 }
-
-
 
 
