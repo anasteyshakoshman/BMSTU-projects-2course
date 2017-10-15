@@ -6,7 +6,9 @@ RoadSign::RoadSign(const float x, const float y)
 	Circle.setRadius(60);
 	Color = sf::Color::Red;
 	Circle.setFillColor(Color);
-	Circle.setPosition(x, y);
+	X = x;
+	Y = y;
+	Circle.setPosition(X, Y);
 }
 
 const sf::Color RoadSign::getColor()
@@ -21,4 +23,7 @@ void RoadSign::changeColor(const sf::Color color)
 }
 
 RoadSign::~RoadSign()
-{}
+{
+	X = 0;
+	Y = 0;
+}
