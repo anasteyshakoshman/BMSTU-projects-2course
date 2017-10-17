@@ -17,14 +17,14 @@ public:
 		Weight = 80;
 		TileMap = 
 		{
-			"01111111111111111111111111111111111111111111111111111111111111111111111111111110",
-			"0pprrrrrrrrrrrrrrrrrrrrrrrrrrrrpprrrrrrrrrrrrrrrrrrrrrrrrrrrpprrrrrrrrrrrrrrrpp0",
-			"0pprrrrrrrrrrrrrrrrrrrrrrrrrrrrpprrrrrrrrrrrrrrrrrrrrrrrrrrrpprrrrrrrrrrrrrrrpp0",
+			"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			"0pprrrrrrrrrrrrrrrrrrrrrrrrrrrrpprrrrrrrpprrrrrrrrrrrrrrrrrrpprrrrrrrrrrrrrrrpp0",
+			"0pprrrrrrrrrrrrrrrrrrrrrrrrrrrrpprrrrrrrpprrrrrrrrrrrrrrrrrrpprrrrrrrrrrrrrrrpp0",
 			"0rr           f                rr       rr       f          rr          f    rr0",
-			"0rr                            rr    f  pprrrrpp   hl  f    pprrrrrrrrrrrrrrrpp0",
-			"0rr  hlrrrrrrrrrrpp            rr  hl   pprrrrpp   mn       pprrrrrrrrrrrrrrrpp0",
+			"0rr                            rr    f  pprrrrpp   hl  f    rr               rr0",
+			"0rr  hlrrrrrrrrrrpp    pprrrrrrpp  hl   pprrrrpp   mn       rr               rr0",
 			"0rr  mnrrrrrrrrrrpp    pprrrrrrpp  mn         rr            rr      hl       rr0",
-			"0rr            f rr    pprrrrrrpp             pprrrrrrrrrrrrpp      mn f     rr0",
+			"0rr            f rr    rr      rr             pprrrrrrrrrrrrpp      mn f     rr0",
 			"0rr    f         pprrrrpp      pprrrrrrpp  f  pprrrrrrrrrrrrpp   pprrrrrrrrrrpp0",
 			"0rr              pprrrrpp f    pprrrrrrpp     rr     hl          pprrrrrrrrrrpp0",
 			"0rr     f  f     rr        hl          rr     rr     mn f        rr          rr0",
@@ -46,25 +46,25 @@ public:
 			"0pprrrrrrrrrrrpprpp    rr      pprrrrrrrrpprrrpp       pprrrpprrrrrrrrrrrrrrrpp0",
 			"0pprrrrrrrrrrrpprpp    rr      rr             rr            rr               rr0",
 			"0rr            f rr    rr      rr             rr            rr         f     rr0",
-			"0rr    f         pprrrrpp      pprrrrrrpp  f  pprrrrrrrrrrrrpprrrrrrrrrrrrrrrpp0",
-			"0rr              pprrrrpp f    pprrrrrrpp     pprrrrrrrrrrrrpprrrrrrrrrrrrrrrpp0",
+			"0rr    f         pprrrrpp      pprrrrrrpp  f  pprrrrrrrrrrrrpprrrpprrrrrrrrrrpp0",
+			"0rr              pprrrrpp f    pprrrrrrpp     pprrrrrrrrrrrrpprrrpprrrrrrrrrrpp0",
 			"0rr     f  f     rr                    rr     rr        f        rr        f rr0",
 			"0rr   f          rr f             f    rr     rr                 rr    hl    rr0",
-			"0rr          pprrpprrrrpp       pprrrrrpprrrrrrrrrrrrrrrrrrrrpprrpp    mn    rr0",
-			"0rr   hl   f pprrpprrrrpp     f pprrrrrpprrrrrrrrrrrrrrrrrrrrpprrpp          rr0",
+			"0rr          pprrpprrrrpp       pprrrrrpprrrrrpprrrrrrrrrrrrrpprrpp    mn    rr0",
+			"0rr   hl   f pprrpprrrrpp     f pprrrrrpprrrrrpprrrrrrrrrrrrrpprrpp          rr0",
 			"0rr   mn     rr        rr       rr     rr   f         f      rr     f        rr0",
-			"0rr          rr        pprrrrrrrpp     rr              pprrrrpprrrrrppr  hl  rr0",
-			"0pprrrrrrrrrrpp        pprrrrrrrpp     rrrrrrrrpp   f  pprrrrpprrrrrppr  mn  rr0",
+			"0rr          rr        pprrrrrrrpp     rr              pprrrrpprrrrrpp   hl  rr0",
+			"0pprrrrrrrrrrpp        pprrrrrrrpp     rrrrrrrrpp   f  pprrrrpprrrrrpp   mn  rr0",
 			"0pprrrrrrrrrrpp     f        f  rr     rrrrrrrrpp      rr           rr       rr0",
-			"0rr       f       pprrrrrrrrrrrrpp    f        rr      rr         f rr       rr0",
-			"0rr               pprrrrrrrrrrrrpp    hl       rr      rr           pprrrrrrrpp0",
-			"0pprrrrrrrrrrrrrrrpp             f    mn       rr   f  rr           pprrrrrrrpp0",
-			"0pprrrrrrrrrrrrrrrpp       hl             f    rr      rr    rr       rr     rr0",
+			"0rr       f  rr   pprrrrrrrrrrrrpp    f        rr      rr         f rr       rr0",
+			"0rr          rr   pprrrrrrrrrrrrpp    hl       rr      rr           pprrrrrrrpp0",
+			"0pprrrrrrrrrrpp   rr             f    mn       rr   f  rr           pprrrrrrrpp0",
+			"0pprrrrrrrrrrpp   rr       hl             f    rr      rr    rr              rr0",
 			"0rr          f    rr       mn  f       f       rr      rr             hl     rr0",
 			"0rr   f           rr                           rr      rr             mn     rr0",
 			"0pprrrrrrrrrrrrrrrpprrrrrrrrrrrrrrrrrrrrrrrrrrrpprrrrrrpprrrrrrrrrrrrrrrrrrrrpp0",
 			"0pprrrrrrrrrrrrrrrpprrrrrrrrrrrrrrrrrrrrrrrrrrrpprrrrrrpprrrrrrrrrrrrrrrrrrrrpp0",
-			"01111111111111111111111111111111111111111111111111111111111111111111111111111110",
+			"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
 		};
 	}
 
@@ -93,7 +93,8 @@ public:
 					}
 					case 'f':
 					{
-						Sprite.setTextureRect(sf::IntRect(0, 120, 120, 120));
+						Sprite.setTextureRect(sf::IntRect(240, 0, 120, 120));
+						//Sprite.setTextureRect(sf::IntRect(0, 120, 120, 120));
 						break;
 					}
 					case 'h':
@@ -119,11 +120,6 @@ public:
 					case ' ':
 					{
 						Sprite.setTextureRect(sf::IntRect(240, 0, 120, 120));
-						break;
-					}
-					case '1':
-					{
-						Sprite.setTextureRect(sf::IntRect(0, 0, 120, 120));
 						break;
 					}
 					case 'c':
