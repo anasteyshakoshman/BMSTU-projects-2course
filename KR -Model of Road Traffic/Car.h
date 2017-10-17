@@ -2,9 +2,9 @@
 class Map;
 class Car
 {
-	float X, Y;
-	float dX, dY;
-	float Speed;
+	double X, Y;
+	double dX, dY;
+	double Speed;
 	int Direction; 
 	float Oil;
 	sf::Image Image;
@@ -12,22 +12,23 @@ class Car
 	sf::Sprite Sprite;
 	sf::Color Color;
 	bool ChangeDir;
-	static std::vector<Car> AllCars;
 public:
-	Car(const sf::Color, Map &);
+	static std::vector<Car> AllCars;
+	/*Car(const sf::Color, Map &);*/
+	Car(const sf::Color, Map &, const double x, const double y);
 	~Car();
 	void go(Map &, sf::RenderWindow &);
 	const bool around(Map &);
 	const sf::Sprite & getSprite();
-	std::vector<int> freeeDirections(Map & map);
-	void coordinateChange(const std::vector<int>, const int index);
-	const float getX()
-	{
-		return X;
-	}
-	const float getY()
-	{
-		return Y;
-	}
+	const std::vector<int> freeDirections(Map & map);
+	bool coordinateChange(const std::vector<int>, const int index);
+	const double getX();
+	const double getY();
+	void okruglenie();
+	void changedir();
+	const bool nextCar(const double dx, const double dy);
+
+	
+	
 
 };
