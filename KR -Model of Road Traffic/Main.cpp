@@ -19,7 +19,7 @@ void createTrafficLight(sf::RenderWindow & window, const Map & map)
 }
 
 
-void addCar(sf::RenderWindow & window, Map & map)
+void addCar(sf::RenderWindow & window, const Map & map)
 {
 	std::string tmp;
 	sf::Color color;
