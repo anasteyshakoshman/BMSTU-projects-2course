@@ -7,8 +7,8 @@ class TrafficLight
 {
 	sf::CircleShape Circle;
 	sf::Color Color;
-	float X;
-	float Y;
+	int X;
+	int Y;
 public:
 	static std::vector<TrafficLight> AllTrafficLight;
 
