@@ -6,6 +6,7 @@ class Map;
 class TrafficLight
 {
 	sf::CircleShape Circle;
+	sf::CircleShape BlackCircle;
 	sf::Color Color;
 	int X;
 	int Y;
@@ -13,10 +14,10 @@ public:
 	static std::vector<TrafficLight> AllTrafficLight;
 
 	TrafficLight(sf::RenderWindow &, const Map & map, const int x, const int y);
-	const sf::Color getColor();
+	sf::Color getColor() const;
 	~TrafficLight();
 	int getX() const;
 	int getY() const;
-	bool work(const float & clock, sf::RenderWindow & window);
+	void work(const int clock, sf::RenderWindow & window);
 };
 
