@@ -36,17 +36,6 @@ void addCar(sf::RenderWindow & window, const Map & map, std::pair <int, int> & c
 
 
 
-void Cars(const Map & map, sf::RenderWindow & window )   
-{
-	Car (sf::Color::Blue, map, window);
-	Car (sf::Color::Green, map, window);
-	Car (sf::Color::Red, map, window);
-	Car (sf::Color::Yellow, map, window);
-	Car (sf::Color::Black, map, window);
-	Car (sf::Color::Transparent, map, window);
-} 
-
-
 void main()
 {
 	sf::RenderWindow window(sf::VideoMode(640, 480), "Cars", sf::Style::Fullscreen);   //окно
