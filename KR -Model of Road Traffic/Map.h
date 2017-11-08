@@ -8,13 +8,16 @@ class Map
 	std::vector<std::string> TileMap;
 	int Height;
 	int Weight;
+	char Simvol;
+
 public:
+
 	Map();
 
-	Map(const sf::String file);
+	Map(const sf::String file, const char simvol);
+
 	void draw(sf::RenderWindow & window);
 	
-
 	Map & operator =(const Map & other);
 	
 	~Map();
@@ -24,6 +27,10 @@ public:
 	int getWeight() const;
 	
 	std::vector<std::string>  getTM() const;
+
+	sf::Sprite getSprite();
+
+	char getSimvol() const;
 };
 
 
