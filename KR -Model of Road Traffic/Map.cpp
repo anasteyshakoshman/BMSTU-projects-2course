@@ -1,62 +1,97 @@
 #include "Map.h"
-Map::Map(const sf::String file)
+Map::Map(const sf::String file, const char simvol)
 {
 	Texture.loadFromFile("images/" + file);
 	Sprite.setTexture(Texture);
-	Height = 48;
-	Weight = 80;
-	TileMap =
+	if (simvol == 'a')
 	{
-		"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
-		"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
-		"00pprrrrrrrrrrrrrrrrrrrrrrrrrrpprrrrrrrpprrrrrrrrrrrrrrrrrrpprrrrrrrrrpprrrrpp00",
-		"00pprrrrrrrrrrrrrrrrrrrrrrrrrrpprrrrrrrpprrrrrrrrrrrrrrrrrrpprrrrrrrrrpprrrrpp00",
-		"00rr         f                rr       rr       f          rr        srrs   rr00",
-		"00rr                          rr    f  pprrrrpp   hl  f    pprrrrrrrrrpprrrrpp00",
-		"00rr  hlrrrrrrrrpp    pprrrrrrpp  hl   pprrrrpp   mn       pprrrrrrrrrpprrrrpp00",
-		"00rr  mnrrrrrrrrpp    pprrrrrrpp  mn         rr            rr        srrs   rr00",
-		"00rr          f rr    rr      rr             pprrrrrrrrrrrrpp         rr    rr00",
-		"00rr    f       pprrrrpp      pprrrrrrpp  f  pprrrrrrrrrrrrpp   pprrrrpprrrrpp00",
-		"00rr            pprrrrpp f    pprrrrrrpp     rr     hl          pprrrrpprrrrpp00",
-		"00rr     ff     rr        hl          rr     rr     mn f        rr          rr00",
-		"00rr   f        rr        mn     f   srrs    rr                 rr   hl     rr00",
-		"00rr        pprrpprrrrpp       pprrrrrpprrrrrpprrrrrrrrrrrrrpprrpp   mn     rr00",
-		"00rr      f pprrpprrrrpp     f pprrrrrpprrrrrpprrrrrrrrrrrrrpprrpp          rr00",
-		"00rr        rr        rr       rr    srrs          hl f     rr     f        rr00",
-		"00rr        rr        pprrrrrrrpp     rr           mn pprrrrpprrrrrpp   hl  rr00",
-		"00pprrrrrrrrpp        pprrrrrrrpp     pprrrrrrpp      pprrrrpprrrrrpp   mn  rr00",
-		"00pprrrrrrrrpp     f        f  rr     pprrrrrrpp      rr           rr       rr00",
-		"00rr                  pprrrrrrrpp    f        rr      rr       f  srrs      rr00",
-		"00rr                  pprrrrrrrpp         hl  rr    f pprrrrrrrrrrrpprrrrrrrpp00",
-		"00pprrrrrrrrrrrrrpp   rr              f   mn  rr      pprrrrrrrrrrrpprrrrrrrpp00",
-		"00pprrrrrrrrrrrrrpp   rr  hl             f   srrs     rr          srrs      rr00",
-		"00rr        f    rr   rr  mn  f    hl   pprrrrpprrrrrrpp     f     rr       rr00",
-		"00rr    hl   pprrpprrrpp           mn   pprrrrpprrrrrrpp           rr       rr00",
-		"00rr    mn   pprrpprrrpp                rr   srrs     rr           rr       rr00",
-		"00rr         rr       rr      pprrrrrrrrpp    rr      pprrrpprrrrrrpprrrrrrrpp00",
-		"00pprrrrrrrrrpprpp    rr      pprrrrrrrrpp    rr      pprrrpprrrrrrpprrrrrrrpp00",
-		"00pprrrrrrrrrpprpp    rr      rr              rr           rr               rr00",
-		"00rr          f rr    rr      pprrrrrrpp      rr           pprrrpprrrrrrrrrrpp00",
-		"00rr     f      rr    rr      pprrrrrrpp      rr       f   pprrrpprrrrrrrrrrpp00",
-		"00rr   f        rr f  rr         f   srrs     rr                rr    hl    rr00",
-		"00rr        pprrpprrrrpp       pprrrrrpprrrrrrpprrrrrrrrrrrrpprrpp    mn    rr00",
-		"00rr   hl   pprrpprrrrpp     f pprrrrrpprrrrrrpprrrrrrrrrrrrpprrpp          rr00",
-		"00rr   mn   rr        rr       rr    srrs  f         f      rr     f        rr00",
-		"00rr        rr        pprrrrrrrpp     rr              pprrrrpprrrrrpp   hl  rr00",
-		"00pprrrrrrrrpp        pprrrrrrrpp     pprrrrrrpp   f  pprrrrpprrrrrpp   mn  rr00",
-		"00pprrrrrrrrpp     f        f  rr     pprrrrrrpp      rr           rr       rr00",
-		"00rr       frr   pprrrrrrrrrrrrpp    f       srrs     rr         f rr       rr00",
-		"00rr        rr   pprrrrrrrrrrrrpp     pprrrrrrpprrrrrrpprrrrrrrrrrrpprrrrrrrpp00",
-		"00pprrrrrrrrpp   rr             f     pprrrrrrpprrrrrrpprrrrrrrrrrrpprrrrrrrpp00",
-		"00pprrrrrrrrpp   rr       hl             f   srrs     rr    rr              rr00",
-		"00rr        f    rr       mn  f       f       rr      rr    rr       hl     rr00",
-		"00rr   f         rr                           rr      rr    rr       mn     rr00",
-		"00pprrrrrrrrrrrrrpprrrrrrrrrrrrrrrrrrrrrrrrrrrpprrrrrrpprrrrpprrrrrrrrrrrrrrpp00",
-		"00pprrrrrrrrrrrrrpprrrrrrrrrrrrrrrrrrrrrrrrrrrpprrrrrrpprrrrpprrrrrrrrrrrrrrpp00",
-		"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
-		"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
-	};
+		Height = 14;
+		Weight = 26;
+		TileMap =
+		{
+			"00000000000000000000000000",
+			"0           s            0",
+			"0 pprrrrrrpprrrrrrrrrrpp 0",
+			"0 pprrrrrrpprrrrrrrrrrpp 0",
+			"0 rr     srrs         rr 0",
+			"0srrs    srrs       ssrr 0",
+			"0 pprrrrrrpprrrrrrpprrpp 0",
+			"0 pprrrrrrpprrrrrrpprrpp 0",
+			"0 rrs    srrs    srrssrrs0",
+			"0 rr     srrs    srrs rr 0",
+			"0 pprrrrrrpprrrrrrpprrpp 0",
+			"0 pprrrrrrpprrrrrrpprrpp 0",
+			"0        s       s       0",
+			"00000000000000000000000000"
+		};
+	}
+	else if (simvol == 'b')
+	{
+		Height = 48;
+		Weight = 80;
+
+		TileMap =
+		{
+			"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+			"0                 s             s        s     s                        s      0",
+			"0 pprrrrrrrrrrrrpprrrrrrrrrrrrpprrrrrrrpprrrrpprrrrrrrrrrrrrrrrrrrrrrrpprrrrpp 0",
+			"0 pprrrrrrrrrrrrpprrrrrrrrrrrrpprrrrrrrpprrrrpprrrrrrrrrrrrrrrrrrrrrrrpprrrrpp 0",
+			"0 rr           srrs          srrs     srrs  srrs                     srrs   rr 0",
+			"0 rr           srrs     s     rr       rr    rr   hlpprrrrrrrrrrpp    rr    rr 0",
+			"0 rr hl pprrrrrrpprrrrpprrrrrrpp  hl   pprrrrpp   mnpprrrrrrrrrrpp    rr    rr 0",
+			"0 rr mnrpprrrrrrpprrrrpprrrrrrpp  mn   pprrrrpp     rr          rr    rr    rr 0",
+			"0 rr    rr     srrs  srrs     rr             rr     rr         srrs  srrs  srr 0",
+			"0 rr    rr      rr    rr      pprrrrrrpp     rr     pprrrrrrrrrrpprrrrpprrrrpp 0",
+			"0 rr    rr      rr    rr      pprrrrrrpp     rr     pprrrrrrrrrrpprrrrpprrrrpp 0",
+			"0 rrs   rr      rr    rr  hl          rr     rr     hl         srrs  s     srrs0",
+			"0 pprrrrpp     srrs  srr  mn         srrs   srrs    mn   s      rr   hl     rr 0",
+			"0 pprrrrpp  pprrpprrrrpp       pprrrrrpprrrrrpprrrrrrrrpprrrrrrrpp   mn     rr 0",
+			"0 rrs       pprrpprrrrpp       pprrrrrpprrrrrpprrrrrrrrpprrrrrrrpp          rr 0",
+			"0 rr        rr s     srrs      rr    srrs   s      hl srrs                  rr 0",
+			"0srrs      srrs      srrs     srr     rr           mn  rr  pprrrrrrpp   hl  rr 0",
+			"0 pprrrrrrrrpprrrrrrrrpprrrrrrrpp     pprrrrrrpprrrrrrrpp  pprrrrrrpp   mn  rr 0",
+			"0 pprrrrrrrrpprrrrrrrrpprrrrrrrpp     pprrrrrrpprrrrrrrpp  rr      rr       rr 0",
+			"0 rrs      srrs      srr      srrs            rr           rr     srrs     srr 0",
+			"0srrs      srrs   s  srrs    s rr         hl  rr           pprrrrrrpprrrrrrrpp 0",
+			"0 pprrrrrrrrpprrpprrrrpprrrpprrpp         mn  rr           pprrrrrrpprrrrrrrpp 0",
+			"0 pprrrrrrrrpprrpprrrrpprrrpprrpp            srrs       s         srrs     srrs0",
+			"0 rrs      s   srrs  s    srrs     hl pprrrrrrpprrrrrrpprrrpp      rr       rr 0",
+			"0 rr    hl      rr         rr      mn pprrrrrrpprrrrrrpprrrpp      rr       rr 0",
+			"0 rr    mn      rr         rr        srr     srrs    srrs  rr      rr       rr 0",
+			"0srrs           rr         pprrrrrrrrrpp      rr      rr   pprrrrrrpp       rr 0",
+			"0 pprrrrrrrrrrrrpp         pprrrrrrrrrpp      rr      rr   pprrrrrrpp       rr 0",
+			"0 pprrrrrrrrrrrrpp         rr        srrs     rr     srrs                  srr 0",
+			"0 rrs           rr         rr         rr      rr      pprrrrrrrrrrrrrrrrrrrrpp 0",
+			"0 rr            rr         rr         rr      rr      pprrrrrrrrrrrrrrrrrrrrpp 0",
+			"0 rr           srrs     s  rr        srrs    srrs     rrs             hl   srrs0",
+			"0 rr        pprrpprrrrpprrrpp  pprrrrrpprrrrrrpp      rr              mn    rr 0",
+			"0 rr   hl   pprrpprrrrpprrrpp  pprrrrrpprrrrrrpp      rr                    rr 0",
+			"0 rr   mn   rr s     srrs      rr    srrs    srrs    srrs                   rr 0",
+			"0srrs      srr        rr       rr     rr      rr      pprrrrrrrrrrrpp   hl  rr 0",
+			"0 pprrrrrrrrpp        rr       rr     rr      rr      pprrrrrrrrrrrpp   mn  rr 0",
+			"0 pprrrrrrrrpp       srrs     srr     rr      rr      rrs          rr       rr 0",
+			"0 rrs      srrs  pprrrpprrrrrrrpp    srrs    srrs    srrs     s   srrs     srr 0",
+			"0srrs      srr   pprrrpprrrrrrrpp     pprrrrrrpprrrrrrpprrrrpprrrrrpprrrrrrrpp 0",
+			"0 pprrrrrrrrpp   rr  s        srrs    pprrrrrrpprrrrrrpprrrrpprrrrrpprrrrrrrpp 0",
+			"0 pprrrrrrrrpp   rr       hl   rr     rrs    srrs    srrs  srrs   s        srrs0",
+			"0 rrs      srrs  rr       mn   rr     rr      rr      rr    rr       hl     rr 0",
+			"0 rr       srrs srrs          srrs   srrs    srrs    srrs  srrs      mn     rr 0",
+			"0 pprrrrrrrrpprrrpprrrrrrrrrrrrpprrrrrpprrrrrrpprrrrrrpprrrrpprrrrrrrrrrrrrrpp 0",
+			"0 pprrrrrrrrpprrrpprrrrrrrrrrrrpprrrrrpprrrrrrpprrrrrrpprrrrpprrrrrrrrrrrrrrpp 0",
+			"0          s    s                s   s       s       s     s                   0",
+			"00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+		};
+
+	}
+	Simvol = simvol;
+	
 };
+
+
+char Map::getSimvol() const
+{
+	return Simvol;
+}
 
 
 int Map::getHeight() const
@@ -70,60 +105,68 @@ int Map::getWeight() const
 }
 
 
-void Map::draw(sf::RenderWindow & window)
+void Map::draw(sf::RenderWindow & window)   //заполнение карты в зависимости от char
 {
+	int x = 0, y = 0;
 	for (int i = 0; i < Height; ++i)
 	{
 		for (int j = 0; j < Weight; ++j)
 		{
+			
+
 			switch (TileMap[i][j])
 			{
 			case '0':
 			{
-						Sprite.setTextureRect(sf::IntRect(0, 0, 120, 120));
+						Sprite.setTextureRect(sf::IntRect(0, 0, pix, pix));
 						break;
 			}
 			case 'r':
 			{
-						Sprite.setTextureRect(sf::IntRect(120, 0, 120, 120));
+						Sprite.setTextureRect(sf::IntRect(pix, 0, pix, pix));
 						break;
 			}
 			case 'p':
 			{
-						Sprite.setTextureRect(sf::IntRect(120, 0, 120, 120));
+						Sprite.setTextureRect(sf::IntRect(pix, 0, pix, pix));
 						break;
 			}
 			case 'h':
 			{
-						Sprite.setTextureRect(sf::IntRect(360, 120, 120, 120));
+						Sprite.setTextureRect(sf::IntRect(3 * pix, pix, pix, pix));
 						break;
 			}
 			case 'l':
 			{
-						Sprite.setTextureRect(sf::IntRect(480, 120, 120, 120));
+						Sprite.setTextureRect(sf::IntRect(4 * pix, pix, pix, pix));
 						break;
 			}
 			case 'm':
 			{
-						Sprite.setTextureRect(sf::IntRect(360, 240, 120, 120));
+						Sprite.setTextureRect(sf::IntRect(3 * pix, 2 * pix, pix, pix));
 						break;
 			}
 			case 'n':
 			{
-						Sprite.setTextureRect(sf::IntRect(480, 240, 120, 120));
+						Sprite.setTextureRect(sf::IntRect(4 * pix, 2 * pix, pix, pix));
 						break;
 			}
 			default:
 			{
-						Sprite.setTextureRect(sf::IntRect(240, 0, 120, 120));
+						Sprite.setTextureRect(sf::IntRect(2 * pix, 0, pix, pix));
 						break;
 			}
 			}
-			Sprite.setPosition(j * 120, i * 120);
+			Sprite.setPosition(j * pix, i * pix);
 			window.draw(Sprite);
 		}
 	}
 };
+
+sf::Sprite Map::getSprite()
+{
+	return Sprite;
+}
 
 Map & Map::operator =(const Map & other)
 {
