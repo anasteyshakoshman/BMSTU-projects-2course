@@ -1,23 +1,69 @@
 #include "Include.h"
 
-#pragma once
-class Map;
 
-class TrafficLight
+class View
 {
-	sf::CircleShape Circle;
-	sf::CircleShape BlackCircle;
-	sf::Color Color;
-	int X;
-	int Y;
-public:
-	static std::vector<TrafficLight> AllTrafficLight;
+	sf::View Camera;
 
-	TrafficLight(sf::RenderWindow &, const Map & map, const int x, const int y);
-	sf::Color getColor() const;
-	~TrafficLight();
-	int getX() const;
-	int getY() const;
-	void work(const int clock, sf::RenderWindow & window);
+public:
+
+	View()
+	{
+		Camera.reset(sf::FloatRect(0, 0, 640, 480));
+	}
+
+	
+
+	sf::View & getCamera()
+	{
+		return Camera;
+	}
+
+	
+
+
+	void work(sf::RenderWindow & wind, const float time)    //управление камерой вида
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			Camera.move(time, 0);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			Camera.move(0, time);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			Camera.move(-time, 0);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			Camera.move(0, -time);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			Camera.zoom(1.0100f);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		{
+			Camera.zoom(0.9900f); 
+		}
+		/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		{
+			Camera.setSize(4800, 2400);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		{
+			Camera.setSize(9600, 5760);
+		}*/
+
+		wind.setView(Camera);
+	}
 };
+
+
+
+
+
+
 
