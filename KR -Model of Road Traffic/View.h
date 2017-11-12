@@ -22,7 +22,7 @@ public:
 	
 
 
-	void work(sf::RenderWindow & wind, const float time)
+	void work(sf::RenderWindow & wind, const float time)    //управление камерой вида
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
