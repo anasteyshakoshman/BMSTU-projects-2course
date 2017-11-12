@@ -1,4 +1,5 @@
 #include "Map.h"
+
 Map::Map(const sf::String file, const char simvol)
 {
 	Texture.loadFromFile("images/" + file);
@@ -10,18 +11,18 @@ Map::Map(const sf::String file, const char simvol)
 		TileMap =
 		{
 			"00000000000000000000000000",
-			"0           s            0",
+			"0                        0",
 			"0 pprrrrrrpprrrrrrrrrrpp 0",
-			"0 pprrrrrrpprrrrrrrrrrpp 0",
+			"0rpprrrrrrpprrrrrrrrrrpp 0",
+			"0 rr      rr          rr 0",
 			"0 rr     srrs         rr 0",
-			"0srrs    srrs       ssrr 0",
 			"0 pprrrrrrpprrrrrrpprrpp 0",
 			"0 pprrrrrrpprrrrrrpprrpp 0",
-			"0 rrs    srrs    srrssrrs0",
-			"0 rr     srrs    srrs rr 0",
+			"0 rr     srrs     rr  rr 0",
+			"0 rr      rr      rr  rr 0",
 			"0 pprrrrrrpprrrrrrpprrpp 0",
-			"0 pprrrrrrpprrrrrrpprrpp 0",
-			"0        s       s       0",
+			"0rpprrrrrrpprrrrrrpprrpp 0",
+			"0                        0",
 			"00000000000000000000000000"
 		};
 	}
@@ -60,7 +61,7 @@ Map::Map(const sf::String file, const char simvol)
 			"0 rr    mn      rr         rr        srr     srrs    srrs  rr      rr       rr 0",
 			"0srrs           rr         pprrrrrrrrrpp      rr      rr   pprrrrrrpp       rr 0",
 			"0 pprrrrrrrrrrrrpp         pprrrrrrrrrpp      rr      rr   pprrrrrrpp       rr 0",
-			"0 pprrrrrrrrrrrrpp         rr        srrs     rr     srrs                  srr 0",
+			"0rpprrrrrrrrrrrrpp         rr        srrs     rr     srrs                  srr 0",
 			"0 rrs           rr         rr         rr      rr      pprrrrrrrrrrrrrrrrrrrrpp 0",
 			"0 rr            rr         rr         rr      rr      pprrrrrrrrrrrrrrrrrrrrpp 0",
 			"0 rr           srrs     s  rr        srrs    srrs     rrs             hl   srrs0",
@@ -83,9 +84,40 @@ Map::Map(const sf::String file, const char simvol)
 		};
 
 	}
+	else if (simvol == 'c')
+	{
+		Weight = 26;
+		Height = 11;
+		TileMap =
+		{
+			"00000000000000000000000000",
+			"0                        0",
+			"0 pprrrrrrrrrrrrrrrrrrpp 0",
+			"0rpprrrrrrrrrrrrrrrrrrpp 0",
+			"0 rr                  rr 0",
+			"0 rr                  rr 0",
+			"0 rr                  rr 0",
+			"0 rr                  rr 0",
+			"0 pprrrrrrrrrrrrrrrrrrpp 0",
+			"0rpprrrrrrrrrrrrrrrrrrpp 0",
+			"0                        0",
+			"00000000000000000000000000"
+		};
+	}
 	Simvol = simvol;
 	
 };
+
+
+Map::Map(Map & other)
+{
+	Texture =  other.Texture;
+	Sprite =  other.Sprite;
+	TileMap = other.TileMap;
+	Height = other.Height;
+	Weight = other.Weight;
+	Simvol = other.Simvol;
+}
 
 
 char Map::getSimvol() const
@@ -172,7 +204,7 @@ Map & Map::operator =(const Map & other)
 {
 	if (&other != this)
 	{
-		this->Height = other.Height;
+		Height = other.Height;
 		Weight = other.Weight;
 		TileMap = other.TileMap;
 		Texture = other.Texture;
