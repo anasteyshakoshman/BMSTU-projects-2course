@@ -1,3 +1,4 @@
+#pragma once
 #include "Include.h"
 
 
@@ -31,6 +32,8 @@ public:
 	sf::Sprite getSprite();
 
 	char getSimvol() const;
+
+	Map(Map & other);
 };
 
 
