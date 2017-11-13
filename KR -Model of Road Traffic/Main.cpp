@@ -7,7 +7,7 @@ void main()
 {
 	sf::RenderWindow window(sf::VideoMode(640, 480), "Cars", sf::Style::Fullscreen);   //окно
 	View view;   //камера
-	Map map("map.png", 'a');   //карта  
+	Map map("map.png", 'd');   //карта  
 
 	Car car(sf::Color::Cyan, map, window);
 	Car car0(sf::Color::Magenta, map, window);
@@ -55,7 +55,7 @@ void main()
 
 	int num = 2;
 
-	createTrafficLight(window, map);  //создание светофоров
+	createTrLightAndRSign(window, map);  //создание светофоров
 
 	while (window.isOpen())     
 	{
