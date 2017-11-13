@@ -1,7 +1,7 @@
 #pragma once
 #include "Include.h"
 
-
+class RoadSign;
 class Map
 {
 	sf::Texture Texture;
@@ -34,6 +34,8 @@ public:
 	char getSimvol() const;
 
 	Map(Map & other);
+
+	void CreateRoadSign(const int x, const int y);
 };
 
 
