@@ -4,6 +4,7 @@
 #include <ctime>
 #include "Map.h"
 #include "TrafficLight.h"
+#include "RoadSign.h"
 
 
 
@@ -16,7 +17,7 @@ Car::Car(const sf::Color col, const Map &  map, sf::RenderWindow & window)
 	Sprite.setTextureRect(sf::IntRect(0, 0, pix, pix)); 
 	Sprite.setColor(col);
 	int random = rand() % 2;
-	if (map.getSimvol() == 'a' || map.getSimvol() == 'c')
+	if (map.getSimvol() == 'a' || map.getSimvol() == 'c' || map.getSimvol() == 'd')
 	{
 		if (!random)
 		{
@@ -26,7 +27,8 @@ Car::Car(const sf::Color col, const Map &  map, sf::RenderWindow & window)
 		else
 		{
 			X = pix;
-			Y = 11 * pix;
+			if(map.getSimvol() == 'c' ) Y =  9 * pix;
+			else Y = 11 * pix;
 		}		
 	}
 	else if (map.getSimvol() == 'b')
@@ -43,7 +45,7 @@ Car::Car(const sf::Color col, const Map &  map, sf::RenderWindow & window)
 		}		
 	}
 	if (!random) Speed = 0.025 * pix;
-	else Speed = 0.025 * pix;
+	else Speed = 0.05 * pix;
 	dX = Speed;
 	dY = 0;
 	Direction = 0;                                 // 0 (+X), 1 (+Y), 2(-X), 3(-Y)     
@@ -136,7 +138,7 @@ int Car::mdY() const
 
 
 
-void Car::changeDirection(const int direct, const Map & map)   //смена направления машинки
+void Car::changeDirection(const int direct)   //смена направления машинки
 {
 	if (!direct)   
 	{
@@ -244,9 +246,9 @@ bool Car::nextCar(const Map & map) const   //чтобы машинки не вр
 {                                                                            
 	for (auto it = AllCars.begin(); it != AllCars.end(); ++it)
 	{
-		if ((X + mdX() * pix) == it->getX() && (Y + mdY() * pix) == it->getY()) return false;
-		else if ((Direction == 0 || Direction  == 2 ) && X + mdX() * pix == it->getX() && mod(Y - it->getY()) < pix) return false;
-		else if ((Direction == 1 || Direction == 3) && Y + mdY() * pix == it->getY() && mod(X - it->getX()) < pix) return false;
+		if ((X + mdX() * pix) == it->X && (Y + mdY() * pix) == it->Y) return false;
+		else if ((Direction == 0 || Direction  == 2 ) && X + mdX() * pix == it->X && mod(Y - it->Y) < pix) return false;
+		else if ((Direction == 1 || Direction == 3) && Y + mdY() * pix == it->Y && mod(X - it->X) < pix) return false;
 	}
 	return true;
 };
@@ -256,15 +258,24 @@ int Car::mod(const int num) const
 	return sqrt(num * num);
 }
 
-
+void Car::changeSpeed(const int newSpeed)
+{
+	if (Speed != newSpeed)
+	{
+		Speed = newSpeed;
+		if (dX < 0) dX = -Speed;
+		else if(dX > 0) dX = Speed;
+		if (dY < 0) dY = -Speed;
+		else if(dY > 0) dY = Speed;
+	}
+}
 
 bool Car::lightAround(const Map & map) const      //проверка на светофоры
 {                                              
-	int koef = 1;
-	if (Direction == 1 || Direction == 3) koef = -1;
-	
 	if (map.getTM()[mY() + mdY()][mX() + mdX()] == 'p' && X % 120 == 0 && Y % 120 == 0)   //чтобы реагировала только на светофор, предназначающийся ей (т.е., стоящий перед перекрестком)
 	{
+		int koef = 1;
+		if (Direction == 1 || Direction == 3) koef = -1;
 		for (auto it = TrafficLight::AllTrafficLight.begin(); it != TrafficLight::AllTrafficLight.end(); ++it)
 		{
 			if (mX() + koef * mdY() == it->getX()  && mY() + koef * mdX() == it->getY() && (it->getColor() == sf::Color::Red || it->getColor() == sf::Color::Yellow)) 
@@ -274,17 +285,34 @@ bool Car::lightAround(const Map & map) const      //проверка на све
 	return true;
 }
 
+void Car::signAround(const Map & map)
+{
+	if (X % 120 == 0 && Y % 120 == 0)
+	{
+		int koef = 1;
+		if (Direction == 1 || Direction == 3) koef = -1;
+		for (auto it = RoadSign::AllRoadSign.begin(); it != RoadSign::AllRoadSign.end(); ++it)
+		{
+			if (mX() + koef * mdY() == it->getX() && mY() + koef * mdX() == it->getY())
+			{
+				changeSpeed(it->getLimit());
+			}
+		}
+	}	
+}
+
 
 void Car::go(sf::RenderWindow & window, const Map &  map)         //основной метод движения 
 {
     if (map.getTM()[mY()][mX()] == 'r' && ChangeDir)  ChangeDir = false;      // как только машинка уехала с перекрестка, на котором поменяла направление
 	srand(time(0));                                                            // (т.е. выехала на 'r'), она снова может его менять
 	std::vector<int> freeDir;
+	signAround(map);
 	if (lightAround(map)) freeDir = freeDirections(map);     //проверяем светофор, если есть и красный, то freedir будет пустым, и приращение X (Y) не произойдет
 	if (freeDir.size())
 	{		
 			int random = rand() % freeDir.size();          //random имеет диапозон от 1 до кол-ва свободных направлений
-			if (Direction != freeDir[random]) changeDirection(freeDir[random], map);
+			if (Direction != freeDir[random]) changeDirection(freeDir[random]);
 			else if (nextCar(map))
 			{
 				X += dX;
