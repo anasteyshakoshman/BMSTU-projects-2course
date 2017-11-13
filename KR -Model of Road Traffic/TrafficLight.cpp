@@ -1,6 +1,6 @@
 #include "TrafficLight.h"
 #include "Map.h"
-#include "Car.h"
+
 
 
 std::vector<TrafficLight> TrafficLight::AllTrafficLight;
