@@ -5,16 +5,18 @@
 #include "Map.h"
 #include "View.h"
 #include "TrafficLight.h"
+#include "RoadSign.h"
 #include <ctime>
 
 
-void createTrafficLight(sf::RenderWindow & window, const Map & map)        //создание светофоров
+void createTrLightAndRSign(sf::RenderWindow & window, const Map & map)        //создание светофоров
 {
 	for (int i = 0; i < map.getHeight(); ++i)
 	{
 		for (int j = 0; j < map.getWeight(); ++j)
 		{
 			if (map.getTM()[i][j] == 's') TrafficLight(window, map, j, i);
+			else if (map.getTM()[i][j] == 'y' || map.getTM()[i][j] == 'k') RoadSign( j, i, map.getTM()[i][j]);
 		}
 	}
 }
@@ -60,6 +62,7 @@ void Work(sf::RenderWindow & window, Map & map, View & view, std::pair<int, int>
 	{
 		it->work(currentClock.first, window);
 	}
+	
 }
 
 
