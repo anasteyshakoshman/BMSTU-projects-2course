@@ -88,7 +88,7 @@ Map::Map(const sf::String file, const char simvol)
 	else if (simvol == 'd')
 	{
 		Weight = 26;
-		Height = 21;
+		Height = 22;
 		TileMap =
 		{
 			"00000000000000000000000000",
@@ -103,7 +103,7 @@ Map::Map(const sf::String file, const char simvol)
 			"0 rr   y  rr      k   rr 0",
 			"0 pprrrrrrpprrpprrrrrrpp 0",
 			"0rpprrrrrrpprrpprrrrrrpp 0",
-			"0 rr          rr   n  rr 0",
+			"0 rr          rr   k  rr 0",
 			"0 rr    k    srrs     rr 0",
 			"0 pprrrrrrrrrrpprrrrrrpp 0",
 			"0 pprrrrrrrrrrpprrrrrrpp 0",
@@ -118,21 +118,40 @@ Map::Map(const sf::String file, const char simvol)
 	else if (simvol == 'c')
 	{
 		Weight = 26;
-		Height = 11;
+		Height = 12;
 		TileMap =
 		{
 			"00000000000000000000000000",
-			"0         y              0",
+			"0                        0",
 			"0 pprrrrrrrrrrrrrrrrrrpp 0",
 			"0rpprrrrrrrrrrrrrrrrrrpp 0",
-			"0 rr       y          rr 0",
-			"0krr                  rrk0",
-			"0 rrk                krr 0",
-			"0 rr       y          rr 0",
+			"0 rr                  rr 0",
+			"0 rr                  rr 0",
+			"0 rr                  rr 0",
+			"0 rr                  rr 0",
 			"0 pprrrrrrrrrrrrrrrrrrpp 0",
 			"0rpprrrrrrrrrrrrrrrrrrpp 0",
-			"0             y          0",
+			"0                        0",
 			"00000000000000000000000000"
+		};
+	}
+	else if (simvol == 'e')
+	{
+		Weight = 15;
+		Height = 9;
+		TileMap =
+		{
+			"000000000000000",
+			"0             0",
+			"0 pprrrrrrrpp 0",
+			"0rpprrrrrrrpp 0",
+			"0 rr       rr 0",
+			"0 rr       rr 0",
+			"0 rr       rr 0",
+			"0 pprrrrrrrpp 0",
+			"0 pprrrrrrrpp 0",
+			"000000000000000000",
+			
 		};
 	}
 	Simvol = simvol;
