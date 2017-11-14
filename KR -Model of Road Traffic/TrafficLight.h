@@ -12,9 +12,10 @@ class TrafficLight
 	int Y;
 	bool LastColor;
 	int TimeChange;
-public:
 	static std::vector<TrafficLight> AllTrafficLight;
-
+public:
+	
+	static std::vector<TrafficLight> & Vec();
 	TrafficLight(sf::RenderWindow &, const Map & map, const int x, const int y);
 	sf::Color getColor() const;
 	~TrafficLight();
