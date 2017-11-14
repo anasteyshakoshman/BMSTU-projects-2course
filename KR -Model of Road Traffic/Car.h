@@ -9,18 +9,18 @@ class Car
 	int Speed;     
 	int Direction;
 	double Oil;
-	sf::Texture Texture;
 	sf::Sprite Sprite;              
 	sf::Color Color;
 	bool ChangeDir;     //переменная, для контроля за тем, чтобы машинка не могла менять напрвление на перекрестке по 10 раз 
-	
-public:
+	bool Life;
 	static std::vector<Car> AllCars;
-
-	Car(const sf::Color col, const Map & map, sf::RenderWindow & window);
-	Car(const sf::Color col, const Map & map, sf::RenderWindow & window, const int x, const int y, const int direction);
+public:
+	
+	static std::vector<Car> & Vec();
+	Car(const sf::Texture & texture, sf::Color col, const Map & map, sf::RenderWindow & window);
+	Car(const sf::Texture & texture, const sf::Color col, const Map & map, sf::RenderWindow & window, const int x, const int y, const int direction);
 	~Car();
-	void go(sf::RenderWindow &, const Map &  map);
+	void go(sf::RenderWindow &, const Map &  map, const bool crash);
 	std::vector<int> freeDirections(const Map &  map) const;
 	void changeDirection(const int direct);
 	int getX() const;
@@ -30,12 +30,15 @@ public:
 	int mdX() const;
 	int mdY() const;
 	bool lightAround(const Map & map) const;
-	bool nextCar(const Map & map) const;
+	int nextCar(const Map & map, const bool crash) const;
 	int mod(const int num) const;
 	int getSpeed() const;
 	void signAround(const Map & map);
 	void changeSpeed(const int newSpeed);
-
+	int okrugl(const int xy) const;
+	bool getLife() const;
+	bool crashAround();
+	
 
 
 };
