@@ -1,6 +1,6 @@
 #include "RoadSign.h"
 
- std::vector<RoadSign> RoadSign::AllRoadSign;
+std::vector<RoadSign> RoadSign::AllRoadSign;
 
 
 RoadSign::RoadSign(const int x, const int y, const char simvol)
@@ -10,6 +10,12 @@ RoadSign::RoadSign(const int x, const int y, const char simvol)
 	if(simvol == 'y') Limit = 6;
 	else Limit = 3;
 	AllRoadSign.push_back(*this);
+}
+
+
+std::vector<RoadSign> & RoadSign::Vec()
+{
+	return AllRoadSign;
 }
 
 
