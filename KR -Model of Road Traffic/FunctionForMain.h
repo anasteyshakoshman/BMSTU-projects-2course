@@ -6,6 +6,7 @@
 #include "View.h"
 #include "TrafficLight.h"
 #include "RoadSign.h"
+#include "Crash.h"
 #include <ctime>
 
 
@@ -21,7 +22,7 @@ void createTrLightAndRSign(sf::RenderWindow & window, const Map & map)        //
 	}
 }
 
-void addCar(sf::RenderWindow & window, const Map & map, std::pair <int, int> & currentClock)   //функция добавления машинки
+void addCar(const sf::Texture & texture, sf::RenderWindow & window, const Map & map, std::pair <int, int> & currentClock)   //функция добавления машинки
 {
 	if (currentClock.first - currentClock.second >= 200 && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
@@ -36,13 +37,24 @@ void addCar(sf::RenderWindow & window, const Map & map, std::pair <int, int> & c
 		else if (random == 4) color = sf::Color::Magenta;
 		else if (random == 5) color = sf::Color::Cyan;
 		else color = sf::Color::White;
-		Car t(color, map, window);
+		Car(texture, color, map, window);
 	}
 }
 
 
+bool isCrash()
+{
+	if (Car::Vec().size() > 30)
+	{
+		int random = rand() % 10;
+		if (random < 3) return true;
+	}
+	return false;
+}
 
-void Work(sf::RenderWindow & window, Map & map, View & view, std::pair<int, int> & currentClock, float time, int & num)
+
+
+void Work(sf::RenderWindow & window, Map & map, View & view, const sf::Texture & texture, std::pair<int, int> & currentClock, float time, bool & crash)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
@@ -51,18 +63,28 @@ void Work(sf::RenderWindow & window, Map & map, View & view, std::pair<int, int>
 	view.work(window, time);  //включаю камеру
 	map.draw(window);   //рисую карту
 	++currentClock.first;
-	addCar(window, map, currentClock);
-	
-	if (currentClock.first % 300 == 0 && num < Car::AllCars.size()) num++;
-	for (int i = 0; i < num; ++i)   //запусk движения машинок
-	{
-		Car::AllCars[i].go(window, map);
-	}
-	for (auto it = TrafficLight::AllTrafficLight.begin(); it != TrafficLight::AllTrafficLight.end(); ++it) //запуск работы светофоров
+	addCar(texture, window, map, currentClock);
+
+	for (auto it = TrafficLight::Vec().begin(); it != TrafficLight::Vec().end(); ++it) //запуск работы светофоров
 	{
 		it->work(currentClock.first, window);
 	}
-	
+	for (int i = 0; i < Car::Vec().size(); ++i)   //запусk движения машинок
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || isCrash()) crash = true;
+		Car::Vec()[i].go(window, map, crash);
+		crash = false;
+	}
+	for (int i = 0; i < Car::Vec().size(); ++i)
+	{
+		if (!Car::Vec()[i].getLife()) 
+			Car::Vec().erase(Car::Vec().begin() + i);
+	}
+	for (int i = 0; i < Crash::Vec().size(); ++i)
+	{
+		if (Crash::Vec()[i].work(window) == 3000) 
+			Crash::Vec().erase(Crash::Vec().begin() + i);
+	}
 }
 
 
