@@ -5,31 +5,22 @@
 #include "Map.h"
 #include "TrafficLight.h"
 #include "RoadSign.h"
-
-
+#include "Crash.h"
 
 std::vector<Car> Car::AllCars;
 
-Car::Car(const sf::Color col, const Map &  map, sf::RenderWindow & window)
+Car::Car(const sf::Texture & texture, const sf::Color col, const Map &  map, sf::RenderWindow & window)
 {
-	Texture.loadFromFile("images/car.png");
-	Sprite.setTexture(Texture);
+	Sprite.setTexture(texture);
 	Sprite.setTextureRect(sf::IntRect(0, 0, pix, pix)); 
 	Sprite.setColor(col);
 	int random = rand() % 2;
-	if (map.getSimvol() == 'a' || map.getSimvol() == 'c' || map.getSimvol() == 'd')
+	if (map.getSimvol() == 'a' || map.getSimvol() == 'c' || map.getSimvol() == 'd' || map.getSimvol() == 'e')
 	{
-		if (!random)
-		{
-			X = pix;
-			Y = 3 * pix;
-		}
-		else
-		{
-			X = pix;
-			if(map.getSimvol() == 'c' ) Y =  9 * pix;
-			else Y = 11 * pix;
-		}		
+		X = pix;
+		if (!random || map.getSimvol() == 'e') Y = 3 * pix;
+		else if(map.getSimvol() == 'c' ) Y =  9 * pix;
+		else Y = 11 * pix;
 	}
 	else if (map.getSimvol() == 'b')
 	{
@@ -51,16 +42,16 @@ Car::Car(const sf::Color col, const Map &  map, sf::RenderWindow & window)
 	Direction = 0;                                 // 0 (+X), 1 (+Y), 2(-X), 3(-Y)     
 	Oil = 100.;                                         
 	ChangeDir = false;                                  
-	Sprite.setPosition(X, Y);                      
+	Sprite.setPosition(X, Y);   
+	Life = true;
 	AllCars.push_back(*this);                         
 	window.draw(Sprite);                               
 };
 
 
-Car::Car(const sf::Color col, const Map &  map, sf::RenderWindow & window, const int x, const int y, const int direction)
+Car::Car(const sf::Texture & texture, const sf::Color col, const Map &  map, sf::RenderWindow & window, const int x, const int y, const int direction)
 {
-	Texture.loadFromFile("images/car.png");
-	Sprite.setTexture(Texture);
+	Sprite.setTexture(texture);
 	Sprite.setColor(col);
 	X = x * pix;
 	Y = y * pix;
@@ -75,9 +66,13 @@ Car::Car(const sf::Color col, const Map &  map, sf::RenderWindow & window, const
 	else if (Direction == 1) Sprite.setTextureRect(sf::IntRect(pix, 0, pix, pix));
 	else if (Direction == 2) Sprite.setTextureRect(sf::IntRect(0, pix, pix, pix));
 	else Sprite.setTextureRect(sf::IntRect(pix, pix, pix, pix));
+	Life = true;
 	AllCars.push_back(*this);                           
 	window.draw(Sprite);                               
 };
+
+
+
 
 
 int Car::getSpeed() const
@@ -85,7 +80,14 @@ int Car::getSpeed() const
 	return Speed;
 }
 
-
+int Car::okrugl(const int xy) const
+{
+	if (xy % pix == 0) return xy;
+	int ost = xy;
+	while (ost > pix) ost -= pix;
+	if (Direction == 0 || Direction == 1) return xy - ost;   //floor
+	if (Direction == 2 || Direction == 3) return xy - ost + pix;    //ceil
+}
 
 
 Car::~Car()
@@ -110,7 +112,10 @@ int Car::getY() const
 	return Y;
 };
 
-
+bool Car::getLife() const
+{
+	return Life;
+}
 
 int Car::mX() const         //  (mapX) перевод координат в доступные для подстановки в карту
 {
@@ -242,15 +247,30 @@ std::vector<int> Car::freeDirections(const Map &  map) const  //возвраща
 	return vec;
 }
 
-bool Car::nextCar(const Map & map) const   //чтобы машинки не врезались
-{                                                                            
-	for (auto it = AllCars.begin(); it != AllCars.end(); ++it)
+
+
+int Car::nextCar(const Map & map, const bool crash) const   //чтобы машинки не врезались
+{   
+	for (int i = 0; i < AllCars.size(); ++i)
 	{
-		if ((X + mdX() * pix) == it->X && (Y + mdY() * pix) == it->Y) return false;
-		else if ((Direction == 0 || Direction  == 2 ) && X + mdX() * pix == it->X && mod(Y - it->Y) < pix) return false;
-		else if ((Direction == 1 || Direction == 3) && Y + mdY() * pix == it->Y && mod(X - it->X) < pix) return false;
+		if ((X + mdX() * pix) == AllCars[i].X && (Y + mdY() * pix) == AllCars[i].Y)
+		{
+			if (crash) return i;
+			else return -1;
+		}
+		else if ((Direction == 0 || Direction == 2) && X + mdX() * pix == AllCars[i].X && mod(Y - AllCars[i].Y) < pix)
+		{
+			if (crash) return i;
+			else return -1;
+		}
+		else if ((Direction == 1 || Direction == 3) && Y + mdY() * pix == AllCars[i].Y && mod(X - AllCars[i].X) < pix)
+		{
+			if (crash) return i;
+			else return -1;
+		}
 	}
-	return true;
+	return -2;
+	
 };
 
 int Car::mod(const int num) const
@@ -276,7 +296,7 @@ bool Car::lightAround(const Map & map) const      //проверка на све
 	{
 		int koef = 1;
 		if (Direction == 1 || Direction == 3) koef = -1;
-		for (auto it = TrafficLight::AllTrafficLight.begin(); it != TrafficLight::AllTrafficLight.end(); ++it)
+		for (auto it = TrafficLight::Vec().begin(); it != TrafficLight::Vec().end(); ++it)
 		{
 			if (mX() + koef * mdY() == it->getX()  && mY() + koef * mdX() == it->getY() && (it->getColor() == sf::Color::Red || it->getColor() == sf::Color::Yellow)) 
 				return false;
@@ -291,7 +311,7 @@ void Car::signAround(const Map & map)
 	{
 		int koef = 1;
 		if (Direction == 1 || Direction == 3) koef = -1;
-		for (auto it = RoadSign::AllRoadSign.begin(); it != RoadSign::AllRoadSign.end(); ++it)
+		for (auto it = RoadSign::Vec().begin(); it != RoadSign::Vec().end(); ++it)
 		{
 			if (mX() + koef * mdY() == it->getX() && mY() + koef * mdX() == it->getY())
 			{
@@ -302,24 +322,61 @@ void Car::signAround(const Map & map)
 }
 
 
-void Car::go(sf::RenderWindow & window, const Map &  map)         //основной метод движения 
+bool Car::crashAround()
 {
-    if (map.getTM()[mY()][mX()] == 'r' && ChangeDir)  ChangeDir = false;      // как только машинка уехала с перекрестка, на котором поменяла направление
-	srand(time(0));                                                            // (т.е. выехала на 'r'), она снова может его менять
+	if (X % pix == 0 && Y % pix == 0)
+	{
+		for (auto it = Crash::Vec().begin(); it != Crash::Vec().end(); ++it)
+		{
+			if ((X + mdX() * pix == it->getX1() && Y + mdY() * pix == it->getY1()) || (X + mdX() * pix == it->getX2() && Y + mdY() * pix == it->getY2()))
+				return false;
+		}
+	}
+	return true;
+}
+
+
+std::vector<Car> & Car::Vec()
+{
+	return AllCars;
+}
+
+
+void Car::go(sf::RenderWindow & window, const Map &  map, const bool crash)         //основной метод движения 
+{
 	std::vector<int> freeDir;
-	signAround(map);
+	bool change = false;
+	int motion = -1;
+	srand(time(0));
+
+    if (map.getTM()[mY()][mX()] == 'r' && ChangeDir)  ChangeDir = false;      // как только машинка уехала с перекрестка, на котором поменяла направление // (т.е. выехала на 'r'), она снова может его менять
+    signAround(map);                                        //проверка на знаки
 	if (lightAround(map)) freeDir = freeDirections(map);     //проверяем светофор, если есть и красный, то freedir будет пустым, и приращение X (Y) не произойдет
 	if (freeDir.size())
-	{		
+	{
 			int random = rand() % freeDir.size();          //random имеет диапозон от 1 до кол-ва свободных направлений
-			if (Direction != freeDir[random]) changeDirection(freeDir[random]);
-			else if (nextCar(map))
+			if (Direction != freeDir[random])
 			{
-				X += dX;
-				Y += dY;
-				Sprite.setPosition(X, Y);
-				Oil -= 0.00000000001;
+				changeDirection(freeDir[random]);
+				change = true;
+			}
+			if (!change)
+			{
+				motion = nextCar(map, crash); 
+				if (motion != -1 && Life && crashAround())                   //если перед машиной нет другой машины или если возможная авария
+				{
+					X += dX;
+					Y += dY;
+					Sprite.setPosition(X, Y);
+					Oil -= 0.00000000001;
+				}
+			}			
+			if (motion > -1)	
+			{
+				Crash(window, okrugl(X), okrugl(Y), okrugl(AllCars[motion].X), okrugl(AllCars[motion].Y));
+				Life = false;
+				AllCars[motion].Life = false;
 			}
 	}	
-	window.draw(Sprite);     // вне зависимости от того, двигалась ли машина, рисуем ее
+	 window.draw(Sprite);     // вне зависимости от того, двигалась ли машина, рисуем ее (не рисуем только если произошла авария)
 }
