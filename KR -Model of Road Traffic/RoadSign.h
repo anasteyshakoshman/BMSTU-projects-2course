@@ -6,10 +6,10 @@ class RoadSign
 {
 	int Limit;
 	int X, Y;
-
-public:
 	static std::vector<RoadSign> AllRoadSign;
-
+public:
+	
+	static std::vector<RoadSign> & Vec();
 	RoadSign(const int x, const int y, const char simvol);
 	~RoadSign();
 	int getLimit() const;
