@@ -85,6 +85,11 @@ int TrafficLight::getY() const
 	return Y / pix;
 }
 
+std::vector<TrafficLight> & TrafficLight::Vec()
+{
+	return AllTrafficLight;
+}
+
 
 sf::Color TrafficLight::getColor() const
 {
